@@ -1,0 +1,20 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/template/template.xhtml">
+	<ui:param name="page_name" value="Accueil" />
+	<ui:define name="title"><h1>Choisir Une Fonctionnalité : </h1></ui:define>
+	<ui:define name="content">
+	<h:panelGroup>
+	<h:form>
+		<h:outputText value="Bonjour #{employeController.authenticatedUser.prenom} #{employeController.authenticatedUser.nom}" />
+		<h:commandButton value="Deconnection" action="#{employeController.doLogout()}" />
+	</h:form>
+</h:panelGroup>
+		<h:link outcome="/pages/admin/gererEmploye" value="Gérer les employés" />
+		<br />
+		<br />
+		<h:link outcome="/pages/admin/ajouterContrat" value="Ajouter un contrat " />
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,84 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/template/template.xhtml">
+	<ui:param name="page_name" value="Accueil" />
+	<ui:define name="content">
+		<h:panelGroup columns="2">
+			<h:form>
+				<table>
+					<tr>
+						<td><h:outputText value="Employe"></h:outputText></td>
+						<td><h:selectOneMenu value="#{employeController.employe}">
+								<f:selectItem itemLabel="Choisir l'employe" itemValue="#{null}" />
+								<f:selectItems value="#{employeController.employes}" />
+							</h:selectOneMenu></td>
+					</tr>
+					<tr>
+						<td><h:outputText value="Date debut"></h:outputText></td>
+						<td><h:inputText id="date" required="true"
+								requiredMessage="Date Début Obligatoire"
+								value="#{employeController.dateDebut}">
+								<f:convertDateTime pattern="dd-MM-yyyy" />
+							</h:inputText></td>
+					</tr>
+					<tr>
+						<td><h:outputText value="Salaire"></h:outputText></td>
+						<td>
+							<h:inputText id="validateSalaire"
+								value="#{employeController.salaire}" required="true"
+								requiredMessage="Le contrat doit spécifier le salaire"
+								validatorMessage="Le salaire doit etre compris entre 1500 et 3000">
+								<f:validateDoubleRange minimum="1500" maximum="3000"
+									for="validateSalaire" />
+							</h:inputText></td>
+					</tr>
+					<tr>
+						<td><h:outputText value="Type contrat"></h:outputText></td>
+						<td><h:inputText value="#{employeController.typeContrat}"></h:inputText></td>
+					</tr>
+					<tr>
+						<td colspan="2"><h:commandButton value="Ajouter Contrat"
+								action="#{employeController.addContrat()}" /></td>
+					</tr>
+					<tr>
+						<td><h:message for="validateSalaire" style="color:green" /></td>
+					</tr>
+				</table>
+			</h:form>
+		</h:panelGroup>
+		<h:panelGroup columns="2">
+			<h:form>
+				<h:dataTable value="#{employeController.contrats}" var="contrat"
+					border="1">
+
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Employé" />
+						</f:facet>
+						<h:outputText value="#{contrat.employe}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Type Contrat" />
+						</f:facet>
+						<h:outputText value="#{contrat.typeContrat}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Salaire" />
+						</f:facet>
+						<h:outputText value="#{contrat.salaire}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Date Début" />
+						</f:facet>
+						<h:outputText value="#{contrat.dateDebut}" />
+					</h:column>
+				</h:dataTable>
+			</h:form>
+		</h:panelGroup>
+	</ui:define>
+</ui:composition>
